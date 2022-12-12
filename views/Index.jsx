@@ -24,9 +24,11 @@ class Index extends React.Component{
             <body>
                 <h1 style={myStyle}>Pokemon!</h1>
                 <ul>
-                    {pokemon.map((element) => {
+                    {pokemon.map((element, index) => {
                         return (
-                            <li>{capitalize(element.name)}</li>
+                            <li>
+                                <a href={`/pokemon/${index}`}>{capitalize(element.name)}</a>
+                            </li>
                         )
                     })}
                 </ul>
