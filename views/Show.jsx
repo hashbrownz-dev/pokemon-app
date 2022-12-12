@@ -1,5 +1,4 @@
 import React from "react"
-import pokemon from "../models/pokemon"
 
 const myStyle = {
     color:'#ffcc00',
@@ -23,7 +22,7 @@ class Show extends React.Component{
             </head>
             <body>
                 <h1 style={myStyle}>Gotta Catch em All!</h1>
-                <h2>{pokemon.name}</h2>
+                <h2>{capitalize(pokemon.name)}</h2>
                 <img src={`${pokemon.img}.jpg`} alt={`${pokemon.name}`}></img>
                 <a href="/pokemon">Back</a>
             </body>
