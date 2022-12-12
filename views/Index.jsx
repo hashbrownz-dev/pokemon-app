@@ -1,12 +1,18 @@
 import React from "react"
+import pokemon from "../models/pokemon"
 
 const myStyle = {
     color:'#ffcc00',
     background: '#000000'
 }
 
+const capitalize = (word) => {
+    return `${word[0].toUpperCase()}${word.slice(1)}`
+}
+
 class Index extends React.Component{
     render(){
+        const pokemon = this.props.pokemon;
         return (
             <html lang="en">
             <head>
@@ -17,6 +23,13 @@ class Index extends React.Component{
             </head>
             <body>
                 <h1 style={myStyle}>Pokemon!</h1>
+                <ul>
+                    {pokemon.map((element) => {
+                        return (
+                            <li>{capitalize(element.name)}</li>
+                        )
+                    })}
+                </ul>
             </body>
             </html>
         )
