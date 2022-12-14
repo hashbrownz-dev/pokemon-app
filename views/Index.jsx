@@ -1,10 +1,4 @@
 import React from "react"
-import pokemon from "../models/pokemon"
-
-const myStyle = {
-    color:'#ffcc00',
-    background: '#000000'
-}
 
 const capitalize = (word) => {
     return `${word[0].toUpperCase()}${word.slice(1)}`
@@ -20,14 +14,18 @@ class Index extends React.Component{
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>Pokemon App</title>
+                <link rel="stylesheet" href="./style.css" />
             </head>
             <body>
-                <h1 style={myStyle}>Pokemon!</h1>
+            <h1>Pokemon!</h1>
+                <p style={{textAlign:'center'}}>
+                    <a href="/pokemon/new">Create New Pokemon</a>
+                </p>
                 <ul>
-                    {pokemon.map((element, index) => {
+                    {pokemon.map((element) => {
                         return (
                             <li>
-                                <a href={`/pokemon/${index}`}>{capitalize(element.name)}</a>
+                                <a href={`/pokemon/${element.id}`}>{capitalize(element.name)}</a>
                             </li>
                         )
                     })}

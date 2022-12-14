@@ -1,17 +1,13 @@
 import React from "react"
 
-const myStyle = {
-    color:'#ffcc00',
-    background: '#000000'
-}
-
 const capitalize = (word) => {
     return `${word[0].toUpperCase()}${word.slice(1)}`
 }
 
 class Show extends React.Component{
     render(){
-        const pokemon = this.props.pokemon;
+        const { p } = this.props;
+        const { name, img} = p;
         return (
             <html lang="en">
             <head>
@@ -19,11 +15,12 @@ class Show extends React.Component{
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>Pokemon App</title>
+                <link rel="stylesheet" href="./style.css" />
             </head>
             <body>
-                <h1 style={myStyle}>Gotta Catch em All!</h1>
-                <h2>{capitalize(pokemon.name)}</h2>
-                <img src={`${pokemon.img}.jpg`} alt={`${pokemon.name}`}></img>
+            <h1>Gotta Catch em All!</h1>
+                <h2>{capitalize(name)}</h2>
+                <img src={`${img}.jpg`} alt={`${name}`}></img>
                 <a href="/pokemon">Back</a>
             </body>
             </html>
