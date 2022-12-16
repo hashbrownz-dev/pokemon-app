@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const pokemon = require('./models/pokemon')
+const methodOverride = require('method-override');
+const fs = require('fs/promises')
 
 // MODELS
 
@@ -21,6 +22,7 @@ const app = express();
 app.engine('jsx', require('express-react-views').createEngine());
 app.set('view engine', 'jsx');
 
+app.use(methodOverride("_method"));
 app.use(express.urlencoded({extended:true})); // parse urlencoded request bodies
 app.use(express.static('public'));
 
@@ -66,6 +68,33 @@ app.get('/pokemon/new', (req,res) => {
         res.render('New')
 })
 
+// DELETE
+
+app.delete('/pokemon/:id', (req,res) => {
+    Pokemon.findByIdAndDelete(req.params.id)
+        .then( () => {
+            res.redirect('/pokemon')
+        })
+        .catch( error => {
+            res.json(error)
+        })
+})
+
+// UPDATE
+
+app.put('/pokemon/:id', async (req, res) => {
+    const {name} = req.body;
+    const img = `http://img.pokemondb.net/artwork/${name}`;
+    Pokemon.findByIdAndUpdate(req.params.id, {name, img}, {new:true})
+        .then( pokemon => {
+            console.log(pokemon);
+            res.redirect('/pokemon');
+        })
+        .catch( error => {
+            res.json(error);
+        })
+})
+
 // CREATE
 
 app.post('/pokemon', async (req, res) => {
@@ -81,6 +110,18 @@ app.post('/pokemon', async (req, res) => {
             res.redirect('/pokemon');
         })
     }catch(error){
+        res.json(error);
+    }
+})
+
+// EDIT
+
+app.get('/pokemon/:id/edit', async (req,res) => {
+    try{
+        const pokemon = await Pokemon.findById(req.params.id);
+        res.render('Edit', {pokemon})
+    }
+    catch(error){
         res.json(error);
     }
 })
